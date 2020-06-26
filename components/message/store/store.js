@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
-const model = require('../models/models');
-//mongodb+srv://db_user_chat:uN1p7xwP8s2P@clusterchat-8nlmx.mongodb.net/db_chat
+const mongoose = require("mongoose");
+const model = require("../models/models");
+const dotenv = require("dotenv");
+const NODE_ENV = process.env.NODE_ENV || "development";
+
+dotenv.config({ path: `.env.${NODE_ENV}` });
 mongoose.Promise = global.Promise;
-mongoose.connect(
-  'mongodb+srv://db_user_chat:uN1p7xwP8s2P@clusterchat-8nlmx.mongodb.net/db_chat',
-  { useNewUrlParser: true }
-);
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+
 console.log(`[db] conectada con exito`);
 
 const addMessage = (message) => {
