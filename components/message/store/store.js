@@ -22,7 +22,16 @@ const getMessages = async () => {
   const messages = await model.find();
   return messages;
 };
+const updateText = async (id, content) => {
+  const foundmessage = await model.findOne({ _id: id });
+  foundmessage.content = content;
+  const newMessage = await foundmessage.save();
+  console.log(newMessage);
+
+  return newMessage;
+};
 module.exports = {
   add: addMessage,
   list: getMessages,
+  updateText: updateText,
 };

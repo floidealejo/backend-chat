@@ -29,7 +29,23 @@ const getMessages = () => {
   });
 };
 
+const updateMessage = (id, content) => {
+  return new Promise(async (resolve, reject) => {
+    console.log(id);
+    try {
+      const result = await store.updateText(id, content);
+      console.log(result);
+      return resolve(result);
+    } catch (err) {
+      if (!id || !content) {
+        console.error(`[${err.message}] No hay id o contenido`);
+        return reject(`Los datos son incorrectos`);
+      }
+    }
+  });
+};
 module.exports = {
   addMessage,
   getMessages,
+  updateMessage,
 };
