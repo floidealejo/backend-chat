@@ -4,8 +4,9 @@ const controller = require("../controller/controller");
 const router = express();
 
 router.get("/", (request, response) => {
+  const filterMessages = request.query.user || null;
   controller
-    .getMessages()
+    .getMessages(filterMessages)
     .then((messageList) => {
       responses.success(request, response, messageList, 200);
     })

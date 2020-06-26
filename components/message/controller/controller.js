@@ -18,10 +18,10 @@ const addMessage = (user, content) => {
   });
 };
 
-const getMessages = () => {
+const getMessages = (filterUser) => {
   return new Promise((resolve, reject) => {
     try {
-      resolve(store.list());
+      resolve(store.list(filterUser));
     } catch (err) {
       console.error(`[${err.message}] No hay lista de mensajes`);
       return reject(`Los datos no se han encontrado`);
