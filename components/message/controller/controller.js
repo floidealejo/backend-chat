@@ -44,8 +44,25 @@ const updateMessage = (id, content) => {
     }
   });
 };
+const deleteMessage = (id) => {
+  return new Promise(async (resolve, reject) => {
+    console.log(id);
+    try {
+      const result = await store.delete(id);
+      console.log(result);
+      return resolve(result);
+    } catch (err) {
+      if (!id) {
+        console.error(`[${err.message}] Data not found`);
+        reject(`the data is not found`);
+        return false;
+      }
+    }
+  });
+};
 module.exports = {
   addMessage,
   getMessages,
   updateMessage,
+  deleteMessage,
 };

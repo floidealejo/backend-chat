@@ -33,11 +33,26 @@ router.post("/", (request, response) => {
 });
 
 router.patch("/:id", (request, response) => {
-  console.log(request.params.id);
   controller
     .updateMessage(request.params.id, request.body.content)
     .then((data) => {
       responses.success(request, response, data, 200);
+    })
+    .catch((e) => {
+      responses.error(request, response, "Error interno", 500, e.message);
+    });
+});
+
+router.delete("/:id", (request, response) => {
+  controller
+    .deleteMessage(request.params.id)
+    .then(() => {
+      responses.success(
+        request,
+        response,
+        `Usuario ${request.params.id} eliminado`,
+        200
+      );
     })
     .catch((e) => {
       responses.error(request, response, "Error interno", 500, e.message);
