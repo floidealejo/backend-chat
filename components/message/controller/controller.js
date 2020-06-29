@@ -1,9 +1,14 @@
 const store = require("../store/store");
-const addMessage = (chat, user, content) => {
+const addMessage = (chat, user, content, file) => {
+  let fileURL = "";
+  if (file) {
+    fileURL = `http://localhost:3000/app/files/${file.filename}`;
+  }
   const fullMessage = {
     chat: chat,
     user: user,
     content: content,
+    image: fileURL,
     date: new Date(),
   };
   return new Promise((resolve, reject) => {
