@@ -7,12 +7,22 @@ const addMessage = (message) => {
 };
 
 const getMessages = async (filterUser) => {
-  let filter = {};
-  if (filterUser !== null) {
-    filter = { user: filterUser };
-  }
-  const messages = await model.find(filter);
-  return messages;
+  return new Promise((resolve, reject) => {
+    let filter = {};
+    if (filterUser !== null) {
+      filter = { user: filterUser };
+    }
+    model
+      .find(filter)
+      .populate("user")
+      .exec((err, populated) => {
+        if (err) {
+          reject(err);
+          return false;
+        }
+        resolve(populated);
+      });
+  });
 };
 const updateText = async (id, content) => {
   const foundmessage = await model.findOne({ _id: id });
