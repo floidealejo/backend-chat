@@ -1,10 +1,11 @@
 const express = require("express");
+const multer = require("multer");
 const responses = require("../../../network/response");
 const controller = require("../controller/controller");
 const router = express();
 
 router.get("/", (request, response) => {
-  const filterMessages = request.query.user || null;
+  const filterMessages = request.query.chat || null;
   controller
     .getMessages(filterMessages)
     .then((messageList) => {
@@ -17,7 +18,7 @@ router.get("/", (request, response) => {
 
 router.post("/", (request, response) => {
   controller
-    .addMessage(request.body.user, request.body.content)
+    .addMessage(request.body.chat, request.body.user, request.body.content)
     .then((fullMessage) => {
       responses.success(request, response, fullMessage, 200);
     })

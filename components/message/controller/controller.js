@@ -1,6 +1,7 @@
 const store = require("../store/store");
-const addMessage = (user, content) => {
+const addMessage = (chat, user, content) => {
   const fullMessage = {
+    chat: chat,
     user: user,
     content: content,
     date: new Date(),
@@ -37,7 +38,7 @@ const updateMessage = (id, content) => {
       console.log(result);
       return resolve(result);
     } catch (err) {
-      if (!id || !content) {
+      if (!chat || !id || !content) {
         console.error(`[${err.message}] No hay id o contenido`);
         return reject(`Los datos son incorrectos`);
       }
